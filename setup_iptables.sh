@@ -147,6 +147,20 @@ iptables -A OUTPUT -p tcp --sport $ssh_server_port -m conntrack --ctstate ESTABL
 EOF
 
 fi
+
+read -p "Enable NAT ? Y/n : " nat
+
+if [ $nat = "Y" ] || [ $nat = "y" ]; then
+
+    cat >> fw_on.sh <<EOF
+
+##NAT POSTROUTING
+iptables -t nat -A POSTROUTING -j MASQUERADE
+
+EOF
+
+fi
+
 }
 
 run_as_root
