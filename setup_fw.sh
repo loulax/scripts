@@ -103,7 +103,6 @@ fi
 function deployment_rules(){
 
     cat > /etc/init.d/fw_on.sh <<EOF
-
 #!/bin/bash
 
 iptables -F
