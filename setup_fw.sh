@@ -160,7 +160,7 @@ iptables -A OUTPUT -p udp --sport $wireguard_port -m conntrack --ctstate ESTABLI
 iptables -A FORWARD -i wg0 -o $wan_int_name -j ACCEPT
 iptables -A FORWARD -i ens3 -o wg0 -j ACCEPT
 iptables -t nat -A POSTROUTING -j MASQUERADE
-iptables -t nat -A PREROUTING -d $ip_public -p udp --dport $wireguard_port -j DNAT --to-destination 10.7.0.1:$wireguard_port
+iptables -t nat -A PREROUTING -d $ip_public -p udp --sport $wireguard_port -j DNAT --to-destination 10.66.66.1:$wireguard_port
 
 EOF
 
