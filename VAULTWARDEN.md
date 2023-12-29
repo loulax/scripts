@@ -225,13 +225,13 @@ systemctl daemon-reload && systemctl start firewall && systemctl enable firewall
 
 Maintenant rendez-vous à l'adresse web configuré dans nginx pour accéder au container vaultwarden https://sub.mydomain.tld/admin
 
-![](img\admin_bw.png)
+![](img/admin_bw.png)
 
 
 
 Puis dans la section SMTP, renseigner les paramètres suivants selon votre fournisseur
 
-![](img\smtp_vaultwarden.jpg)
+![](img/smtp_vaultwarden.jpg)
 
 Et enfin validez en bas à gauche.
 
