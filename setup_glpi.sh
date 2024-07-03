@@ -54,7 +54,7 @@ if [[ -d /var/www/html/glpi ]]; then
 else
 
     echo -e "$lightblue Récupération de l'archive depuis internet $color_off"
-    cd /tmp && wget https://github.com/glpi-project/glpi/releases/download/9.5.7/glpi-9.5.7.tgz &>/dev/null 2>&1 >>/var/log/glpi_setup.log
+    cd /tmp && wget https://github.com/glpi-project/glpi/releases/download/10.0.16/glpi-10.0.16.tgz &>/dev/null 2>&1 >>/var/log/glpi_setup.log
     echo -e "$lightblue extraction de l'archive $color_off"
     cd /tmp && tar xvzf glpi-*.tgz -C /var/www/html &>/dev/null 2>&1 >>/var/log/glpi_setup.log
     echo -e "$darkblue Installation de mariadb-server"
