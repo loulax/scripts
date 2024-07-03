@@ -108,7 +108,7 @@ else
 	#Include conf-available/serve-cgi-bin.conf
 </VirtualHost>" > /etc/apache2/sites-enabled/glpi.conf
 	/usr/sbin/a2dissite 000-default.conf
-    a2enmod ldap
+    	/usr/sbin/a2enmod ldap &>/dev/null
 fi
 
 echo -e "$darkgreen Redémarrage du service apache2 / mariadb $color_off"
