@@ -1,3 +1,20 @@
+#########################################
+                                        #
+    SCRIPT INSTALLATION GLPI            #
+                                        #
+    Author : Louis Arnau                #
+    Version : 1.1                       #
+                                        #
+#########################################
+
+
+ Mise à jour du système
+ Installation des dépendances
+ GLPI est déjà installé.
+ Redémarrage du service apache2 / mariadb
+ L'installation est log dans /var/log/glpi_setup.log
+root@glpi:~# nano setup_glpi.sh
+root@glpi:~# cat setup_glpi.sh
 #!/bin/bash
 
 black='\e[0;30m'
@@ -33,7 +50,7 @@ $Color_Off
 """
 
 
-if (( $EUID != 0 )); then   
+if (( $EUID != 0 )); then
 
     echo -e "$dardred Please run as root $color_off"
     exit 1
@@ -45,7 +62,7 @@ apt update &>/dev/null 2>&1 >>/var/log/glpi_setup.log && apt -y full-upgrade &>/
 echo -e "$lightblue Installation des dépendances $color_off"
 #Installation d'apache et des paquets php nécessaires au bon fonctionnement de glpi
 apt -y install apache2 libapache2-mod-php php php-mysql mariadb-server &>/dev/null 2>&1 >>/var/log/glpi_setup.log
-apt -y install php-{ldap,imap,apcu,xmlrpc,cas,mysqli,mbstring,curl,gd,simplexml,xml,intl,zip,bz2,fpm} &>/dev/null 2>&1 >>/var/log/glpi_setup.log
+apt -y install php-{ldap,cli,fileinfo,json,xmlrpc,imap,apcu,apcu-bc,xmlrpc,cas,mysqli,mbstring,curl,gd,simplexml,xml,intl,zip,bz2,fpm} &>/dev/null 2>&1 >>/var/log/glpi_setup.log
 
 if [[ -d /var/www/html/glpi ]]; then
 
@@ -54,13 +71,14 @@ if [[ -d /var/www/html/glpi ]]; then
 else
 
     echo -e "$lightblue Récupération de l'archive depuis internet $color_off"
+    tail /var/log/glpi_setup.log
     cd /tmp && wget https://github.com/glpi-project/glpi/releases/download/10.0.16/glpi-10.0.16.tgz &>/dev/null 2>&1 >>/var/log/glpi_setup.log
     echo -e "$lightblue extraction de l'archive $color_off"
     cd /tmp && tar xvzf glpi-*.tgz -C /var/www/html &>/dev/null 2>&1 >>/var/log/glpi_setup.log
     echo -e "$darkblue Installation de mariadb-server"
     apt -y install mariadb-server &>/dev/null 2>&1 >>/var/log/glpi_setup.log
     echo -e "$darkblue Sécurisation de Mysql $color_off"
-    echo -e "$darkred identifiant root(localhost only) / Securefox34*" 
+    echo -e "$darkred identifiant root(localhost only) / Securefox34*"
     mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'Securefox34*';
     DELETE FROM mysql.user WHERE user='';
     DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
