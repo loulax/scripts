@@ -43,8 +43,7 @@ echo -e "$lightblue Mise à jour du système $color_off"
 apt update &>/dev/null 2>&1 >>/var/log/glpi_setup.log && apt -y full-upgrade &>/dev/null 2>&1 >>/var/log/glpi_setup.log
 echo -e "$lightblue Installation des dépendances $color_off"
 #Installation d'apache et des paquets php nécessaires au bon fonctionnement de glpi
-apt -y install apache2 libapache2-mod-php php php-mysql mariadb-server &>/dev/null 2>&1 >>/var/log/glpi_setup.log
-apt -y install php-{ldap,cli,curl,xmlreader,xmlwriter,intl,bz2,zip,fileinfo,json,xmlrpc,imap,apcu,apcu-bc,xmlrpc,cas,mysqli,mbstring,curl,gd,simplexml,xml,intl,zip,bz2,fpm} &>/dev/null 2>&1 >>/var/log/glpi_setup.log
+apt -y install apache2 libapache2-mod-php php mariadb-server php-{ldap,cli,curl,xmlreader,xmlwriter,intl,bz2,zip,fileinfo,json,xmlrpc,imap,apcu,apcu-bc,xmlrpc,cas,mysqli,mbstring,curl,gd,simplexml,xml,intl,zip,bz2,fpm} &>/dev/null 2>&1 >>/var/log/glpi_setup.log
 
 if [[ -d /var/www/html/glpi ]]; then
 
@@ -108,7 +107,7 @@ else
 	#Include conf-available/serve-cgi-bin.conf
 </VirtualHost>" > /etc/apache2/sites-enabled/glpi.conf
 	/usr/sbin/a2dissite 000-default.conf
-    	/usr/sbin/a2enmod ldap &>/dev/null
+    /usr/sbin/a2enmod ldap &>/dev/null
 fi
 
 echo -e "$darkgreen Redémarrage du service apache2 / mariadb $color_off"
